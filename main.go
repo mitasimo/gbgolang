@@ -20,9 +20,17 @@ func main() {
 		}
 		arr = append(arr, int(num))
 	}
-	fmt.Println("Unsorted: ", arr)
-	SortInsert(arr)
-	fmt.Println("Sorted: ", arr)
+	fmt.Println("Исходный массив (до сортировки):\t", arr)
+
+	quickArr := make([]int, len(arr))
+	copy(quickArr, arr)
+	SortQuick(quickArr)
+	fmt.Println("После быстрой сортировки:\t\t", quickArr)
+
+	insertArr := make([]int, len(arr))
+	copy(insertArr, arr)
+	SortInsert(insertArr)
+	fmt.Println("После сортировки вставками:\t\t", insertArr)
 }
 
 func SortQuick(arr []int) {
