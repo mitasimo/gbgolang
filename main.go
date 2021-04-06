@@ -10,20 +10,22 @@ import (
 
 func main() {
 	var arr []int
-	scan := bufio.NewScanner(os.Stdin)
-	for scan.Scan() {
-		num, err := strconv.ParseInt(scan.Text(), 10, 64)
+
+	scanner := bufio.NewScanner(os.Stdin)
+	scanner.Split(bufio.ScanWords)
+	for scanner.Scan() {
+		num, err := strconv.ParseInt(scanner.Text(), 10, 64)
 		if err != nil {
 			log.Fatalln(err)
 		}
 		arr = append(arr, int(num))
 	}
 	fmt.Println("Unsorted: ", arr)
-	quickSort(arr)
+	SortInsert(arr)
 	fmt.Println("Sorted: ", arr)
 }
 
-func quickSort(arr []int) {
+func SortQuick(arr []int) {
 	if len(arr) < 2 {
 		return
 	}
@@ -51,7 +53,19 @@ func quickSort(arr []int) {
 		}
 	}
 	// рекурсивно вызвать для левой части (в ней элементы меньше опорного)
-	quickSort(arr[:rightInd+1])
+	SortQuick(arr[:rightInd+1])
 	// .. правой части (в ней элементы больше опорного)
-	quickSort(arr[leftInd:])
+	SortQuick(arr[leftInd:])
+}
+
+func SortInsert(arr []int) {
+	for i := 1; i < len(arr); i++ {
+		j := i - 1
+		key := arr[i]
+		for j >= 0 && arr[j] > key {
+			arr[j+1] = arr[j]
+			j -= 1
+		}
+		arr[j+1] = key
+	}
 }
