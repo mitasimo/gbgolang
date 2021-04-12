@@ -6,6 +6,9 @@ import (
 
 func main() {
 
-	calculator.RunCalculator()
+	actions := []action{
+		{"Калькулятор", calculator.RunCalculator},
+	}
+	menu(actions)
 
 }
