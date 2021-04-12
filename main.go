@@ -8,6 +8,7 @@ func main() {
 
 	actions := []action{
 		{"Калькулятор", calculator.RunCalculator},
+		{"Фибоначчи", RunFibonachi},
 	}
 	menu(actions)
 
