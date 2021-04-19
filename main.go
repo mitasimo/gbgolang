@@ -11,5 +11,4 @@ func main() {
 		{"Фибоначчи", RunFibonachi},
 	}
 	menu(actions)
-
 }
