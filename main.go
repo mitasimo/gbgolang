@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"log"
+	"os"
 
 	cfg "github.com/mitasimo/gbgolang/config"
 )
@@ -10,13 +10,18 @@ import (
 func main() {
 	dbConf, err := cfg.LoadDBConfig()
 	if err != nil {
-		log.Fatalf("Ошибка конфигурации базы данных: %v\n", err)
+		fatal("Ошибка конфигурации базы данных:", err)
 	}
 	fmt.Println(dbConf)
 
 	svcConf, err := cfg.LoadServiceConfig()
 	if err != nil {
-		log.Fatalf("Ошибка конфигурации сервиса: %v\n", err)
+		fatal("Ошибка конфигурации сервиса:", err)
 	}
 	fmt.Println(svcConf)
+}
+
+func fatal(messages ...interface{}) {
+	fmt.Fprintln(os.Stderr, messages...)
+	os.Exit(-1)
 }
