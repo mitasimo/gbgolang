@@ -4,9 +4,12 @@ import (
 	"encoding/json"
 	"errors"
 	"os"
+	"regexp"
 
 	"github.com/go-yaml/yaml"
 )
+
+var validIP = regexp.MustCompile(`\b((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\.|$)){4}\b`)
 
 type ServiceConfig struct {
 	IPPort   string `json:"ip_port"`
@@ -63,6 +66,9 @@ func LoadDBConfig(fileName string) (*DBConfig, error) {
 
 	if cfg.Host == "" {
 		return nil, errors.New("host не может быть пустым")
+	}
+	if !validIP.MatchString(cfg.Host) {
+		return nil, errors.New("неверный формат IP адреса в host")
 	}
 	if cfg.DB == "" {
 		return nil, errors.New("db не может быть пустым")
