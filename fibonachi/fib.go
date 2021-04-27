@@ -13,7 +13,7 @@ func FibVars(n int) int {
 	return cur
 }
 
-func FibCache(n int) int {
+func FibSlice(n int) int {
 	if n < 2 {
 		return n
 	}
@@ -25,6 +25,20 @@ func FibCache(n int) int {
 	}
 
 	return cache[n]
+}
+
+func FibMap(n int) int {
+	if n < 2 {
+		return n
+	}
+
+	m := make(map[int]int, n+1)
+	m[0], m[1] = 0, 1
+	for i := 2; i <= n; i++ {
+		m[i] = m[i-1] + m[i-2]
+	}
+
+	return m[n]
 }
 
 func FibRecur(n int) int {

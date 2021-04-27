@@ -6,8 +6,12 @@ func TestFibVars(t *testing.T) {
 	insideTestFib(t, FibVars, "FibVars")
 }
 
-func TestFibCache(t *testing.T) {
-	insideTestFib(t, FibCache, "FibCache")
+func TestFibSlice(t *testing.T) {
+	insideTestFib(t, FibSlice, "FibCache")
+}
+
+func TestFibMap(t *testing.T) {
+	insideTestFib(t, FibMap, "FibMap")
 }
 
 func TestFibRecur(t *testing.T) {
@@ -28,7 +32,7 @@ func insideTestFib(t *testing.T, f func(int) int, fn string) {
 		{"0", args{0}, 0, false},
 		{"1", args{1}, 1, false},
 		{"2", args{2}, 1, false},
-		{"53", args{30}, 832040, false},
+		{"40", args{40}, 102334155, false},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -45,15 +49,24 @@ var globalF int
 func BenchmarkFibVars(t *testing.B) {
 	var f int
 	for i := 0; i <= t.N; i++ {
-		f = FibVars(30)
+		f = FibVars(5000)
 	}
 
 	globalF = f
 }
-func BenchmarkFibCache(t *testing.B) {
+func BenchmarkFibSlice(t *testing.B) {
 	var f int
 	for i := 0; i <= t.N; i++ {
-		f = FibCache(30)
+		f = FibSlice(5000)
+	}
+
+	globalF = f
+}
+
+func BenchmarkFibMap(t *testing.B) {
+	var f int
+	for i := 0; i <= t.N; i++ {
+		f = FibMap(5000)
 	}
 
 	globalF = f
@@ -62,7 +75,7 @@ func BenchmarkFibCache(t *testing.B) {
 func BenchmarkFibRecur(t *testing.B) {
 	var f int
 	for i := 0; i <= t.N; i++ {
-		f = FibRecur(30)
+		f = FibRecur(40)
 	}
 
 	globalF = f
