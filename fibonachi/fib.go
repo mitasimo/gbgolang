@@ -1,4 +1,4 @@
-package main
+package fibonachi
 
 func FibVars(n int) int {
 	if n < 2 {
